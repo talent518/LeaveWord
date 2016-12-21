@@ -1,0 +1,44 @@
+<!--{template header}-->
+
+<form id="userRegister" class="formtable" action="{U $action,$operate}" method="post">
+	<table class="base" width="100%" cellspacing="0" cellpadding="0" border="0">
+		<caption>用户注册</caption>
+		<tbody>
+			<tr>
+				<th>用户名：</th>
+				<td><input name="username" type="text" value=""/></td>
+			</tr>
+			<tr>
+				<th>密　码：</th>
+				<td><input id="password" name="password" type="password" value=""/></td>
+			</tr>
+			<tr>
+				<th>验证密码：</th>
+				<td><input name="rpassword" type="password" value=""/></td>
+			</tr>
+			<tr>
+				<th>电子邮箱：</th>
+				<td><input name="email" type="text" value=""/></td>
+			</tr>
+		</tbody>
+		<tfoot>
+			<tr>
+				<th><input name="registersubmit" type="hidden" value="1"/></th>
+				<td><input type="submit" value="立即注册并进行下一步" class="submit"/>&nbsp;<input type="reset" value="重置输入" class="button"/></td>
+			</tr>
+		</tfoot>
+	</table>
+	<script type="text/javascript">
+	$('#userRegister').validate({
+		rules:{
+			username:{required:true,username:true},
+			password:{required:true,password:true,minlength:6},
+			rpassword:{required:true,equalTo:'#password'},
+			email:{required:true,email:true}
+		},messages:{
+		}
+	});
+	</script>
+</form>
+
+<!--{template footer}-->

@@ -1,0 +1,32 @@
+<!--{template header}-->
+
+<form id="userLogin" class="formtable" action="{U user,login}" method="post">
+	<table class="base" width="100%" cellspacing="0" cellpadding="0" border="0">
+		<caption>用户登录</caption>
+		<tbody>
+			<tr>
+				<th>用户名：</th>
+				<td><input name="username" type="text" value="" size="20"/></td>
+			</tr>
+			<tr>
+				<th>密　码：</th>
+				<td><input name="password" type="password" value="" size="20"/></td>
+			</tr>
+			<tr>
+				<th><input name="cookietime" type="checkbox" value="2592000"/><label for="cookietime">记住</label><input name="loginsubmit" type="hidden" value="1"/></th>
+				<td><input type="submit" value="立即登录" class="submit"/>&nbsp;<input type="reset" value="重置输入" class="button"/></td>
+			</tr>
+		</tbody>
+	</table>
+	<script type="text/javascript">
+	$('#userLogin').validate({
+		rules:{
+			username:{required:true,username:true},
+			password:{required:true,password:true,minlength:6}
+		},messages:{
+		}
+	});
+	</script>
+</form>
+
+<!--{template footer}-->

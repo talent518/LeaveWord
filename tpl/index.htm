@@ -1,0 +1,60 @@
+<!--{template header}-->
+
+<!--{if $_UID}-->
+<!--{subtemplate talk/send}-->
+<!--{/if}-->
+
+<!--{eval
+function show_revert_talk($pid){
+	global $rlist,$_UID;
+	if(!$rlist[$pid])
+		return;
+	foreach($rlist[$pid] as $tid=>$talk){
+}-->
+	<dl>
+		<dt><img src="{avatar $talk[uid],middle}"/></dt>
+		<dd>
+			<p>$talk[username]($talk[nickname])&nbsp;{echo $talk[sex]?'男':'女'}&nbsp;{date 'Y-m-d',$talk[birthday]}&nbsp;{$talk[qq]}&nbsp;{date 'Y-m-d H:i',$talk[dateline]}&nbsp;&nbsp;<a href="{U talk,revert,'tid='.$tid}" class="revert">回复</a><!--{if IN_MANAGER || $talk['uid']==$_UID}-->&nbsp;&nbsp;<a href="{U talk,drop,'tid='.$tid}" class="drop">删除</a><!--{/if}--></p>
+			<pre>$talk[message]</pre>
+			<!--{eval show_revert_talk($tid)}-->
+		</dd>
+	</dl>
+<!--{eval
+}
+}-->
+<!--{eval
+}
+}-->
+
+<div id="listTalk">
+<!--{loop $list $tid $talk}-->
+	<dl id="talk">
+		<dt><img src="{avatar $talk[uid],middle}"/></dt>
+		<dd>
+			<h3>$talk[subject]</h3>
+			<p>$talk[username]($talk[nickname])&nbsp;{echo $talk[sex]?'男':'女'}&nbsp;{date 'Y-m-d',$talk[birthday]}&nbsp;{$talk[qq]}&nbsp;{date 'Y-m-d H:i',$talk[dateline]} &nbsp;&nbsp;<a href="{U talk,revert,'tid='.$tid}" class="revert">回复</a><!--{if IN_MANAGER || $talk['uid']==$_UID}-->&nbsp;&nbsp;<a href="{U talk,drop,'tid='.$tid}" class="drop">删除</a><!--{/if}--></p>
+			<pre>$talk[message]</pre>
+			<!--{eval show_revert_talk($tid)}-->
+		</dd>
+	</dl>
+<!--{/loop}-->
+	<center>$multi</center>
+</div>
+<script type="text/javascript">
+$('#listTalk .revert').click(function(){
+	var thisObj=$(this);
+	$.get(this.href,{dataType:'html'},function(x){
+		$('#talkRevert').remove();
+		thisObj.parent().next().after(x);
+	});
+	return false;
+});
+$('#listTalk .drop').click(function(){
+	if(confirm('删除时会一并将回复删除，你确定要继续吗？')){
+		$.getJson(this.href);
+	}
+	return false;
+});
+</script>
+
+<!--{template footer}-->

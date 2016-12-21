@@ -1,0 +1,48 @@
+<!--{template header}-->
+
+<form id="userAccount" class="formtable" action="{U $action,$operate}" method="post">
+	<table class="base" width="100%" cellspacing="0" cellpadding="0" border="0">
+		<caption>帐户设置</caption>
+		<tbody>
+			<tr>
+				<th>用户名：</th>
+				<td><b>$_UNAME</b></td>
+			</tr>
+			<tr>
+				<th>原密码：</th>
+				<td><input id="spassword" name="spassword" type="password" value=""/></td>
+			</tr>
+			<tr>
+				<th>新密码：</th>
+				<td><input id="password" name="password" type="password" value=""/></td>
+			</tr>
+			<tr>
+				<th>验证新密码：</th>
+				<td><input name="rpassword" type="password" value=""/></td>
+			</tr>
+			<tr>
+				<th>电子邮箱：</th>
+				<td><input name="email" type="text" value="$_EMAIL"/></td>
+			</tr>
+		</tbody>
+		<tfoot>
+			<tr>
+				<th><input name="accountsubmit" type="hidden" value="1"/></th>
+				<td><input type="submit" value="保存修改" class="submit"/>&nbsp;<input type="reset" value="重置输入" class="button"/></td>
+			</tr>
+		</tfoot>
+	</table>
+	<script type="text/javascript">
+	$('#userAccount').validate({
+		rules:{
+			spassword:{required:true,password:true},
+			password:{password:true,minlength:6},
+			rpassword:{equalTo:'#password'},
+			email:{required:true,email:true}
+		},messages:{
+		}
+	});
+	</script>
+</form>
+
+<!--{template footer}-->

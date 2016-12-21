@@ -1,0 +1,76 @@
+<!--{template header}-->
+
+<!--{if isset($_G['uid'])}-->
+	<form id="userManager" class="formtable" action="{U $action,$operate,'uid='.$uid}" method="post">
+		<table class="base" width="100%" cellspacing="0" cellpadding="0" border="0">
+			<caption>{echo $uid?'编辑':'添加'}用户</caption>
+			<tbody>
+				<tr>
+					<th>用户名：</th>
+					<td><input name="username" type="text" value="$user[username]"{if $user} readonly="true" class="readonly"{/if}/></td>
+				</tr>
+				<tr>
+					<th>密　码：</th>
+					<td><input id="password" name="password" type="text" value=""/></td>
+				</tr>
+				<tr>
+					<th>电子邮箱：</th>
+					<td><input name="email" type="text" value="$user[email]"/></td>
+				</tr>
+			</tbody>
+			<tfoot>
+				<tr>
+					<th><input name="managersubmit" type="hidden" value="1"/></th>
+					<td><input type="submit" value="{echo $uid?'编辑':'添加'}用户" class="submit"/></td>
+				</tr>
+			</tfoot>
+		</table>
+		<script type="text/javascript">
+		$('#userManager').validate({
+			rules:{
+				username:{required:true,username:true},
+				password:{password:true,minlength:6},
+				email:{required:true,email:true}
+			},messages:{
+			}
+		});
+		</script>
+	</form>
+<!--{else}-->
+	<div id="userManager" class="formtable">
+		<table cellspacing="0" cellpadding="0" border="0" class="list">
+			<caption><a href="{U $action,$operate,'uid=0'}" class="fr">添加</a>用户管理</caption>
+			<thead>
+				<tr>
+					<th width="64">用户编号</th>
+					<th width="200">用户名</th>
+					<th widht="*">电子邮箱</th>
+					<th width="64">操作</th>
+				</tr>
+			</thead>
+			<tbody>
+			<!--{loop $list $r}-->
+				<tr>
+					<td width="64">$r[uid]</td>
+					<td width="200">$r[username]</td>
+					<td widht="*">$r[email]</td>
+					<td width="64"><a href="{U $action,$operate,'uid='.$r[uid]}">编辑</a><span class="split">|</span><a href="{U $action,$operate,'uid='.$r[uid]}" class="drop">删除</a></td>
+				</tr>
+			<!--{/loop}-->
+			</tbody>
+		<!--{if $multi}-->
+			<tfoot><tr><td colspan="4">$multi</td></tr></tfoot>
+		<!--{/if}-->
+		</table>
+		<script type="text/javascript">
+		$('#userManager a.drop').click(function(){
+			if(confirm('删除时会一并将回复删除，你确定要继续吗？')){
+				$.postJson(this.href,{dropsubmit:1});
+			}
+			return false;
+		});
+		</script>
+	</div>
+<!--{/if}-->
+
+<!--{template footer}-->

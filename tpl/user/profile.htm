@@ -1,0 +1,48 @@
+<!--{template header}-->
+<!--{eval $profile=M('user_profile')->get($_UID);}-->
+<form id="userProfile" class="formtable" action="{U $action,$operate}" method="post">
+	<table class="base" width="100%" cellspacing="0" cellpadding="0" border="0">
+		<caption>用户资料</caption>
+		<tbody>
+			<tr>
+				<th>昵称：</th>
+				<td><input name="nickname" type="text" value="$profile[nickname]"/></td>
+			</tr>
+			<tr>
+				<th>性别：</th>
+				<td><input name="sex" type="radio" value="1"{if $profile[sex]} checked{/if}/>男&nbsp;<input name="sex" type="radio" value="0"{if $profile && !$profile[sex]} checked{/if}/>女<label for="sex"/></td>
+			</tr>
+			<tr>
+				<th>生日：</th>
+				<td><input name="birthday" type="text" value="{date 'Y-m-d',$profile[birthday]}" class="datepicker"/></td>
+			</tr>
+			<tr>
+				<th>QQ：</th>
+				<td><input name="qq" type="text" value="$profile[qq]"/></td>
+			</tr>
+		</tbody>
+		<tfoot>
+			<tr>
+				<th><input name="profilesubmit" type="hidden" value="1"/></th>
+				<td><input type="submit" value="保存修改" class="submit"/>&nbsp;<input type="reset" value="重置输入" class="button"/></td>
+			</tr>
+		</tfoot>
+	</table>
+	<script type="text/javascript">
+	$('#userProfile').validate({
+		rules:{
+			avatar:{accept:true},
+			nickname:{required:true,chinese:true},
+			sex:{required:true},
+			birthday:{required:true,dateISO:true},
+			qq:{required:true,digits:true,minlength:5}
+		},messages:{
+			sex:{required:'请选择'}
+		}
+	});
+	var year=new Date().getFullYear();
+	$('.datepicker').datePicker({clickInput:true,startDate:(year-100)+'-01-01',endDate:(year-8)+'-01-01'});
+	</script>
+</form>
+
+<!--{template footer}-->

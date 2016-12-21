@@ -1,0 +1,44 @@
+<!--{template header}-->
+
+<script type="text/javascript"> 
+	function updateavatar() {
+		window.location.reload();
+	}
+</script>
+<div id="userAvatar" class="formtable">
+	<table valign="middle" align="center" border="1" cellspacing="0" cellpadding="0">
+		<caption>上传头像</caption>
+		<thead>
+			<tr>
+				<th align="center"><b>小</b>(48*48px)</th>
+				<th align="center"><b>中</b>(120*120px)</th>
+				<th align="center"><b>大</b>(200*200px)</th>
+			</tr>
+		</thead>
+		<tbody>
+			<tr>
+				<td valign="bottom" align="center"><img src="{avatar $_UID,small}"/></td>
+				<td valign="bottom" align="center"><img src="{avatar $_UID,middle}"/></td>
+				<td valign="bottom" align="center"><img src="{avatar $_UID,big}"/></td>
+			</tr>
+		</tbody>
+		<tfoot>
+			<tr>
+				<td colspan="3" valign="middle" align="center" width="450" height="253">
+					<!--{eval
+						$ucapi=urlencode(F_URL);
+						$agent=urlencode(authcode($_UID.'|'.$_USER['password'],'ENCODE',COOKIE_KEY));
+					}-->
+					<object classid="clsid:d27cdb6e-ae6d-11cf-96b8-444553540000" codebase="http://download.macromedia.com/pub/shockwave/cabs/flash/swflash.cab#version=10,0,0,0" width="450" height="253" id="camera" align="middle">
+						<param name="allowScriptAccess" value="sameDomain" />
+						<param name="allowFullScreen" value="false" />
+						<param name="movie" value="{SKIN_URL}/images/camera.swf?ucapi=$ucapi&agent=$agent" /><param name="quality" value="high" /><param name="bgcolor" value="#ffffff" />
+						<embed src="{SKIN_URL}/images/camera.swf?ucapi=$ucapi&agent=$agent" quality="high" bgcolor="#ffffff" width="450" height="253" name="camera" align="middle" allowScriptAccess="sameDomain" allowFullScreen="false" type="application/x-shockwave-flash" pluginspage="http://www.adobe.com/go/getflashplayer_cn" />
+					</object>
+				</td>
+			</tr>
+		</tfoot>
+	</table>
+</div>
+
+<!--{template footer}-->

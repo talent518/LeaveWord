@@ -1,0 +1,22 @@
+<!--{template header}-->
+
+<div id="messageBox">
+	<h2 id="msg_box">消息提示</h2>
+	<h6>$__message</h6>
+<!--{if $url}-->
+	<p>在<b id="retime" class="numeric">$__timeout</b>秒后为您自动跳转，如果您的浏览器没有自动跳转，请点击<a href="$url"><b>这里</b></a>！</p>
+	<script type="text/javascript">
+	var timeout=$__timeout;
+	function retimeHandler(){
+		if(timeout==0){
+			location.href='$url';
+			return;
+		}
+		$('#retime').text(timeout--);
+		setTimeout(retimeHandler,1000);
+	}retimeHandler();
+	</script>
+<!--{/if}-->
+</div>
+
+<!--{template footer}-->

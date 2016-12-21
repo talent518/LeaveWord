@@ -1,0 +1,23 @@
+<form id="talkRevert" class="formtable" action="{U talk,revert,'tid='.$tid}" method="post">
+	<table class="base" width="100%" cellspacing="0" cellpadding="0" border="0">
+		<caption>回复留言：</caption>
+		<body>
+			<tr>
+				<td><textarea name="message" rows="5"></textarea></td>
+			</tr>
+		</tbody>
+		<tfoot>
+			<tr>
+				<td><input name="revertsubmit" type="hidden" value="1"/><input type="submit" value="留言" class="submit"/>&nbsp;<input type="button" value="重置" class="button"/></td>
+			</tr>
+		</tfoot>
+	</table>
+	<script type="text/javascript">
+	$('#talkRevert').validate({
+		rules:{
+			message:{required:true}
+		},messages:{
+		}
+	});
+	</script>
+</form>

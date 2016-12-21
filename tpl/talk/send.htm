@@ -1,0 +1,30 @@
+<form id="talkSend" class="formtable" action="{U talk,send}" method="post">
+	<table class="base" width="100%" cellspacing="0" cellpadding="0" border="0">
+		<caption>我要留言：</caption>
+		<body>
+			<tr>
+				<th>主题：</th>
+				<td><input name="subject" type="text" value=""/></td>
+			</tr>
+			<tr>
+				<th>留言：</th>
+				<td><textarea name="message" rows="5"></textarea></td>
+			</tr>
+		</tbody>
+		<tfoot>
+			<tr>
+				<th><input name="sendsubmit" type="hidden" value="1"/></th>
+				<td><input type="submit" value="留言" class="submit"/>&nbsp;<input type="button" value="重置" class="button"/></td>
+			</tr>
+		</tfoot>
+	</table>
+	<script type="text/javascript">
+	$('#talkSend').validate({
+		rules:{
+			subject:{required:true},
+			message:{required:true}
+		},messages:{
+		}
+	});
+	</script>
+</form>
